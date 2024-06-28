@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rent A Car</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Roboto:700&display=swap');
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    .body4{
+      background: white;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+    }
+
+    .tableProducers{
+      border-collapse: collapse;
+      margin: 50px 0px;
+      font-size: 20px;
+      font-family: 'Orbitron', sans-serif;
+      min-width: 400px;
+
+    }
+    .tableProducers thead tr{
+      float:center;
+    }
+
+    .tableProducers thead tr th{
+      text-align: center;
+      padding: 50px;
+    }
+
+    .tableProducers tbody tr td{
+      text-align: center;
+      padding: 50px;
+    }
+
+    .tableProducers tbody button{
+      height: 40px;
+      width: 100px;
+      border: 2px solid rgb(14, 13, 13);
+      background: none;
+      padding: 50px, 50px;
+      font-size: 20px;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .button2{
+      display: block;
+      margin: auto;
+      height: 40px;
+      width: 200px;
+      border: 2px solid rgb(14, 13, 13);
+      background: none;
+      padding: 50px, 50px;
+      font-size: 20px;
+      font-family: 'Orbitron', sans-serif;
+    }
+  </style>
+</head>
+<body class="body4">
+<div class="producers">
+  <table  class="tableProducers">
+    <tr>
+      <br><br><br><br>
+      <th> ID </th>
+      <th> Producer Name </th>
+      <th> Car Name </th>
+      <th> Car Model </th>
+      <th> Car Year </th>
+      <th authorize="hasRole('ADMIN')" >Actions</th>
+    </tr>
+    <tr th:each="produce :${Producers}">
+      <td th:text="${produce.id}"></td>
+      <td th:text="${produce.producerName}"></td>
+      <td th:text="${produce.carName}"></td>
+      <td th:text="${produce.carModel}"></td>
+      <td th:text="${produce.carYear}"></td>
+      <td authorize="hasRole('ADMIN')">
+        <button class="button3" th:onclick=" 'addCar(' +${produce.carName} +')'   ">Accept</button>
+        <button class="button3" th:onclick=" 'handleClick(' + ${produce.id} + ')' ">Delete</button>
+      </td>
+    </tr>
+  </table>
+  <button class="button2" type="button" onclick="location.href='/'">Home</button>
+</div>
+<script type="text/javascript">
+  function handleClick(data) {
+    fetch('/produces/'+data, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to delete user');
+      }// handle success response
+    }).catch(error => {
+      console.error('Error deleting user:', error);
+    });
+    console.log(data);
+  }
+
+  function addCar(data){
+
+  }
+
+</script>
+
+</body>
+
+</html>

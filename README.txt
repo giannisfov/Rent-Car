@@ -1,7 +1,5 @@
-Για να μπορεσει κανεις να τρεξει την εφαρμοφη στον υπολογιστη του θα πρεπει πρωτα να εχει εγκαταστησει το docker ενα image του PostgreSQL version 14.
-Επειτα μπορει να τρεξει την παρακατω εντολη στο τερματικο για να δημιουργηθει η βαση.
-
+In order to run this web application you habe you to download docker with and an image of PostgresSQL version 14.
+Then run this command in order to create the database:
 docker run --name spb_db --rm -e POSTGRES_PASSWORD=pass123 --net=host -v pgdata14:/var/lib/postgresql/data -d postgres:14
 
-Μετα η εφαρμογη μπορει να τρεξει, ενω θα δημιουργηθούν από μονα τους τα tables.
-Επίσης στο repository θα βρειτε και ενα αρχειο sql για τη δημιουργια των πινακων και τη δημιουργια μερικων χρηστων.
+The web application will run and the tables will automatic created. On repository you will find a file sql for creating users.
